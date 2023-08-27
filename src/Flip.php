@@ -5,6 +5,7 @@ namespace QuetzalStudio\Flip;
 use GuzzleHttp\Psr7\Response as Psr7Response;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\Response;
+use QuetzalStudio\Flip\Models\AcceptPaymentCreateBill;
 use QuetzalStudio\Flip\Models\BankAccountInquiry;
 use QuetzalStudio\Flip\Models\MoneyTransfer;
 use QuetzalStudio\Flip\Models\SpecialMoneyTransfer;
@@ -150,6 +151,25 @@ class Flip
         $resp = static::client()->idempotencyKey($key)->post(
             static::url('v3.special_money_transfer'),
             $payload->toArray()
+        );
+
+        return static::handleResponse($resp);
+    }
+
+    public static function createBill(AcceptPaymentCreateBill $payload)
+    {
+        $resp = static::client()->post(
+            static::url('v2.create_bill'),
+            $payload->toArray()
+        );
+
+        return static::handleResponse($resp);
+    }
+
+    public static function getBill(string $billId)
+    {
+        $resp = static::client()->get(
+            static::url('v2.get_bill'). "/$billId/bill",
         );
 
         return static::handleResponse($resp);

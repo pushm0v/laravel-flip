@@ -20,6 +20,8 @@ return [
             'bank_account_inquiry' => '/v2/disbursement/bank-account-inquiry',
             'get_countries' => '/v2/disbursement/country-list',
             'get_cities' => '/v2/disbursement/city-list',
+            'create_bill' => '/v2/pwf/bill',
+            'get_bill' => '/v2/pwf',
         ],
 
         'v3' => [
