@@ -163,6 +163,13 @@ class Flip
             $payload->toArray()
         );
 
+        if ($resp->json('code') == Error::VALIDATION_ERROR) {
+            $psr7 = new Psr7Response(422, $resp->headers(), $resp->body());
+            $resp = new Response($psr7);
+
+            throw new RequestException($resp);
+        }
+
         return static::handleResponse($resp);
     }
 
